@@ -3,17 +3,24 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        int[] nums = new int[10];
-        for (int i = 0; i < 10; ++i) nums[i] = scan.nextInt();
-        int amount = scan.nextInt(), num, count = 0;
-        for (int i = 0; i < amount; ++i) {
-            for (int g = 0; g < 6; ++g) {
-                num = scan.nextInt();
-                for (int j = 0; j < 10; ++j) if (num == nums[j]) ++count;
+        String min = "zzzz", sub = "zzzz", sub1, sub2 = "", str = scan.nextLine();
+        boolean flag = true;
+        int strlength = str.length()-1;
+        for (int i = 0; i < strlength; ++i) {
+            sub1 = str.substring(i, i+2);
+            if (i < str.length()-2) sub2 = str.substring(i, i+3);
+            if (sub1.charAt(0)==sub1.charAt(1)) {
+                sub = sub1;
+                flag = false;
             }
-            if (count >= 3) System.out.println("Lucky");
-            else System.out.println("Unlucky");
-            count = 0;
+            if (flag && sub2.charAt(0)==sub2.charAt(2)) {
+                sub = sub2;
+            }
+            if (min.compareTo(sub) > 0 || sub.length()<min.length()) {
+                min = sub;
+            }
         }
+        if (min == "zzzz") System.out.println("-1");
+        else System.out.println(min);
     }
 }
